@@ -4,10 +4,7 @@ import org.example.user.User;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class AccountService extends Account {
 
@@ -73,7 +70,7 @@ public class AccountService extends Account {
 
     }
 
-    private Account findAccountById(String accountNumber) {
+    public Account findAccountById(String accountNumber) {
 
         for (Account account : accountList) {
             if (account.getAccountNumber().equals(accountNumber)) {
@@ -97,12 +94,9 @@ public class AccountService extends Account {
         boolean foundTransactions = false;
         for (AccountHistory history : accountHistories) {
             if (history.getId().equals(account.getId())) {
-                transactionHistory.append("Sender: " + history.getSender().getAccountNumber() + "\n");
-                transactionHistory.append("Receiver: " + history.getReceiver().getAccountNumber() + "\n");
-                transactionHistory.append("Amount: " + history.getAmount() + "\n");
-                transactionHistory.append("Transfer Type: " + history.getTransferType() + "\n");
-                transactionHistory.append("Description: " + history.getDescription() + "\n");
-                transactionHistory.append("Transaction Date: " + history.getTransactionDate() + "\n");
+                for (String s : Arrays.asList("Sender: " + history.getSender().getAccountNumber() + "\n", "Receiver: " + history.getReceiver().getAccountNumber() + "\n", "Amount: " + history.getAmount() + "\n", "Transfer Type: " + history.getTransferType() + "\n", "Description: " + history.getDescription() + "\n", "Transaction Date: " + history.getTransactionDate() + "\n")) {
+                    transactionHistory.append(s);
+                }
                 foundTransactions = true;
             }
         }
@@ -226,13 +220,13 @@ public class AccountService extends Account {
         return "Account Not Found";
     }
 
-    public String confirmBeforeDeletingAccount(long id, boolean isDeleting){
+    public String confirmBeforeDeletingAccount(Long id){
 
-        if (!isDeleting){
+        if (getAccountById(id) == null) {
             return "Deletion canceled!";
         } else {
 
-            //deleteAccount(id);
+            deleteAccount(id);
             return "Deletion completed!";
 
         }

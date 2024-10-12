@@ -1,8 +1,5 @@
 package org.example.user;
 
-import org.example.account.Account;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -29,7 +26,7 @@ public class UserService {
         return "Account successfully created.";
     }
 
-    public User createUserFromInput(User user) {
+    public void createUserFromInput(User user) {
 
         String validationMessage = inputValidationOnAccountCreation(user);
         System.out.println(validationMessage);
@@ -38,7 +35,6 @@ public class UserService {
             userLists.add(user);
         }
 
-        return user;
     }
 
     public void readAllUsers() {
